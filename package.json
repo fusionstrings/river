@@ -1,0 +1,16 @@
+{
+  "name": "@fusionstrings/river",
+  "version": "1.0.0",
+  "description": "- Origin Server   - Nginx Unit",
+  "exports": {
+    ".": "./www/app.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "dependencies": {
+    "unit-http": "^1.30.0",
+    "koa": "2.14.2"
+  }
+}

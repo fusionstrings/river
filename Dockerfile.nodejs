@@ -1,0 +1,46 @@
+# keep our base image as small as possible
+FROM unit:1.30.0-node18
+# Alternatively, you can download the base image from AWS ECR:
+# FROM public.ecr.aws/nginx/unit:1.30.0-node18
+
+# port used by the listener in config.json
+
+# The port that your application listens to.
+ENV PORT=8080
+EXPOSE 8080
+
+WORKDIR /www
+
+COPY www/app.js .
+
+COPY package.json .
+# COPY package-lock.json .
+RUN npm install
+
+RUN chmod +x app.js
+
+#RUN sudo chown -R unit:unit .
+
+#application setup
+RUN echo '{                                                             \
+    "listeners": {                                                         \
+        "*:80": {                                                        \
+            "pass": "applications/node_app"                                \
+        }                                                                  \
+    },                                                                     \
+    "applications": {                                                      \
+        "node_app": {                                                      \
+            "type": "external",                                            \
+            "working_directory": "/www/",                                  \
+            "executable": "/usr/bin/env",                                  \
+            "arguments": [                                                 \
+                "node",                                                    \
+                "--loader",                                                \
+                "unit-http/loader.mjs",                                    \
+                "--require",                                               \
+                "unit-http/loader",                                        \
+                "app.js"                                                   \
+            ]                                                             \
+        }                                                                  \
+    }                                                                      \
+    }' > /docker-entrypoint.d/config.json
