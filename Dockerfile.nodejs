@@ -24,7 +24,7 @@ RUN chmod +x app.js
 #application setup
 RUN echo '{                                                             \
     "listeners": {                                                         \
-        "*:80": {                                                        \
+        "*:8080": {                                                        \
             "pass": "applications/node_app"                                \
         }                                                                  \
     },                                                                     \
