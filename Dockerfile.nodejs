@@ -17,7 +17,7 @@ COPY package.json .
 # COPY package-lock.json .
 RUN npm install
 
-RUN chmod +x www/app.js
+RUN chmod +x app.js
 
 #RUN sudo chown -R unit:unit .
 
