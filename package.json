@@ -5,12 +5,10 @@
   "exports": {
     ".": "./www/app.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "type": "module",
   "dependencies": {
+    "@google-cloud/aiplatform": "^2.16.0",
     "unit-http": "^1.30.0",
-    "koa": "2.14.2"
-  }
+    "koa":"^2.14.2"
+  },
+  "type": "module"
 }

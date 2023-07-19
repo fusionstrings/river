@@ -1,6 +1,6 @@
 {
     "listeners": {
-        "*:80": {
+        "*:8080": {
             "pass": "routes"
         }
     },
@@ -15,14 +15,38 @@
                 "share": [
                     "/www/$host$uri.html",
                     "/www/$host$uri",
-                    "/www/error_pages/not_found.html"
-                ]
+                    "/www/$uri"
+                ],
+                "fallback": {
+                    "pass": "applications/nodejs"
+                }
             }
         },
         {
             "action": {
-                "share": "/usr/share/unit/welcome/welcome.md"
+                "share": [
+                    "/www/$host$uri",
+                    "/www/$uri",
+                    "/www/404.html"
+                ]
             }
         }
-    ]
+    ],
+    "applications": {
+        "nodejs": {
+            "type": "external",
+            "stderr": "error.log",
+            "stdout": "output.log",
+            "working_directory": "/www/",
+            "executable": "/usr/bin/env",
+            "arguments": [
+                "node",
+                "--loader",
+                "unit-http/loader.mjs",
+                "--require",
+                "unit-http/loader",
+                "app.js"
+            ]
+        }
+    }
 }

@@ -21,7 +21,7 @@ app.use(async (ctx, next) => {
 // response
 
 app.use(async ctx => {
-  ctx.body = 'Hello, Koa on Unit!';
+  ctx.body = 'Hello, Koa on Unit! v0.1.8';
 });
 
 app.listen();
