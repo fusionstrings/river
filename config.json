@@ -13,9 +13,9 @@
             },
             "action": {
                 "share": [
-                    "/www/$host$uri.html",
-                    "/www/$host$uri",
-                    "/www/$uri"
+                    "/river/www/$host$uri.html",
+                    "/river/www/$host$uri",
+                    "/river/www/$uri"
                 ],
                 "fallback": {
                     "pass": "applications/nodejs"
@@ -25,9 +25,9 @@
         {
             "action": {
                 "share": [
-                    "/www/$host$uri",
-                    "/www/$uri",
-                    "/www/404.html"
+                    "/river/www/$host$uri",
+                    "/river/www/$uri",
+                    "/river/www/404.html"
                 ]
             }
         }
