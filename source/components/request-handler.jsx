@@ -1,5 +1,3 @@
-import { WritableStream } from 'node:stream/web'
-import { setTimeout } from 'node:timers/promises'
 import { Suspense } from "react";
 import ReactDOMServer from "react-dom/server.browser";
 
