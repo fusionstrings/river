@@ -37,7 +37,7 @@
             "type": "external",
             "stderr": "error.log",
             "stdout": "output.log",
-            "working_directory": "/www/",
+            "working_directory": "/river/",
             "executable": "/usr/bin/env",
             "arguments": [
                 "node",
@@ -45,7 +45,7 @@
                 "unit-http/loader.mjs",
                 "--require",
                 "unit-http/loader",
-                "app.js"
+                "www/server.js"
             ]
         }
     }

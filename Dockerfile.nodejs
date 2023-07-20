@@ -9,17 +9,28 @@ FROM unit:1.30.0-node18
 ENV PORT=8080
 EXPOSE 8080
 
-WORKDIR /www
+WORKDIR /river/
 
-COPY www/app.js .
+COPY package.json ./
 
-COPY package.json .
+ADD source source/
+
+ADD www www/
 # COPY package-lock.json .
 RUN npm install
 
-RUN chmod +x app.js
+RUN chmod +x www/server.js
 
 #RUN sudo chown -R unit:unit .
 
 #application setup
+
+# RUN UNIT_CONFIG=$(cat config.json) && echo "$UNIT_CONFIG" > /docker-entrypoint.d/config.json
+
+
+# RUN CONFIG_CONTENT=$(cat config.json) \
+#     && echo "$CONFIG_CONTENT" >> /docker-entrypoint.d/config.json
 COPY config.json /docker-entrypoint.d/config.json
+# COPY ./.secret/*.pem  /docker-entrypoint.d/
+# COPY ./config/*.json /docker-entrypoint.d/
+# COPY ./scripts/*.sh   /docker-entrypoint.d/
