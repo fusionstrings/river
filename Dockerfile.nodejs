@@ -13,13 +13,18 @@ WORKDIR /river/
 
 COPY package.json ./
 
+COPY tsconfig.json ./
+
 ADD source source/
 
 ADD www www/
 # COPY package-lock.json .
 RUN npm install
 
+#RUN npx bun build source/components/request-handler.jsx --outdir www/components
+RUN npm run build
 RUN chmod +x www/server.js
+# RUN chmod +x www/components/request-handler.js
 
 #RUN sudo chown -R unit:unit .
 

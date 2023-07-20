@@ -5,10 +5,24 @@
   "exports": {
     ".": "./www/app.js"
   },
+  "scripts": {
+    "build": "tsc"
+  },
+  "imports": {
+    "#request-handler": "./www/components/request-handler.js"
+  },
   "dependencies": {
     "@google-cloud/aiplatform": "^2.16.0",
-    "unit-http": "^1.30.0",
-    "koa":"^2.14.2"
+    "express": "^4.18.2",
+    "koa": "^2.14.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "unit-http":"^1.30.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "typescript": "^5.1.6"
   },
   "type": "module"
 }
