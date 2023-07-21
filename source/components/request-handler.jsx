@@ -14,7 +14,7 @@ function requestHandlerHTTP(request, response) {
   console.log(ReactDOMServer);
   const { renderToString } = ReactDOMServer;
   console.log(renderToString);
-  const html = renderToString(<App name={Unit} />);
+  const html = renderToString(<App name={'Unit'} />);
   response.end(html);
   //ReactDOMServer.renderToPipeableStream(<App />).pipe(response);
 
