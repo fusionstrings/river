@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import ReactDOMServer from "react-dom/server.browser";
 
-function App() {
+function App({name}) {
   return (
     <div>
       <Suspense fallback={<p>Loading...</p>}>
-        <h1>Hello React running in Unit</h1>
+        <h1>Hello React running in {name}</h1>
       </Suspense>
     </div>
   );
@@ -14,7 +14,7 @@ function requestHandlerHTTP(request, response) {
   console.log(ReactDOMServer);
   const { renderToString } = ReactDOMServer;
   console.log(renderToString);
-  const html = renderToString(<App />);
+  const html = renderToString(<App name={Unit} />);
   response.end(html);
   //ReactDOMServer.renderToPipeableStream(<App />).pipe(response);
 

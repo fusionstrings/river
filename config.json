@@ -18,7 +18,7 @@
                     "/river/www/$uri"
                 ],
                 "fallback": {
-                    "pass": "applications/nodejs"
+                    "pass": "applications/node"
                 }
             }
         },
@@ -33,7 +33,7 @@
         }
     ],
     "applications": {
-        "nodejs": {
+        "node": {
             "type": "external",
             "stderr": "error.log",
             "stdout": "output.log",

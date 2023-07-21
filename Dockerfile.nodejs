@@ -7,6 +7,7 @@ FROM unit:1.30.0-node18
 
 # The port that your application listens to.
 ENV PORT=8080
+
 EXPOSE 8080
 
 WORKDIR /river/
@@ -35,6 +36,7 @@ RUN chmod +x www/server.js
 
 # RUN CONFIG_CONTENT=$(cat config.json) \
 #     && echo "$CONFIG_CONTENT" >> /docker-entrypoint.d/config.json
+
 COPY config.json /docker-entrypoint.d/config.json
 # COPY ./.secret/*.pem  /docker-entrypoint.d/
 # COPY ./config/*.json /docker-entrypoint.d/
