@@ -10,7 +10,16 @@ function App({ name }) {
     </div>
   );
 }
-function requestHandlerHTTP(request, response) {
+
+async function requestHandlerHTTP(request, response) {
+  const { pathname } = new URL(request.url, `http://${request.headers.host}`);
+  const pathnameHandlerID = pathname.replace("/", "#");
+  const pathnameHandler = pathnameHandlerID === "#"
+    ? "#home"
+    : pathnameHandlerID;
+
+  const { requestHandlerHTTP } = await import(pathnameHandler);
+  return requestHandlerHTTP(request);
   console.log(ReactDOMServer);
   const { renderToString } = ReactDOMServer;
   console.log(renderToString);

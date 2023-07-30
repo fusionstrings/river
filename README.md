@@ -86,3 +86,8 @@ docker exec -i ba3737b060f7 sh -c "curl -X PUT --data-binary @- --unix-socket /v
 docker exec -ti ba3737b060f7 curl --unix-socket /var/run/control.unit.sock http://localhost/config
 
 ```
+
+## Build
+
+Typescript files are built using [`tsconfig files`](https://www.typescriptlang.org/tsconfig#files) property.
+- Add entry to every entry point [here](tsconfig.json#L103)
