@@ -7,6 +7,25 @@
     "routes": [
         {
             "match": {
+                "uri": "/stream/*",
+                "headers": {
+                    "accept": "*text/html*"
+                }
+            },
+
+            "action": {
+                "share": [
+                    "/river/www/$host$uri.html",
+                    "/river/www/$host$uri",
+                    "/river/www/$uri"
+                ],
+                "fallback": {
+                    "pass": "applications/node-stream"
+                }
+            }
+        },
+        {
+            "match": {
                 "headers": {
                     "accept": "*text/html*"
                 }
@@ -46,6 +65,21 @@
                 "--require",
                 "unit-http/loader",
                 "www/server.js"
+            ]
+        },
+        "node-stream": {
+            "type": "external",
+            "stderr": "error.log",
+            "stdout": "output.log",
+            "working_directory": "/river/",
+            "executable": "/usr/bin/env",
+            "arguments": [
+                "node",
+                "--loader",
+                "unit-http/loader.mjs",
+                "--require",
+                "unit-http/loader",
+                "www/server-stream.js"
             ]
         }
     }

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import ReactDOMServer from "react-dom/server.browser";
+import ReactDOMServer from "react-dom/server";
 
-function App({name}) {
+function App({ name }) {
   return (
     <div>
       <Suspense fallback={<p>Loading...</p>}>
@@ -14,7 +14,7 @@ function requestHandlerHTTP(request, response) {
   console.log(ReactDOMServer);
   const { renderToString } = ReactDOMServer;
   console.log(renderToString);
-  const html = renderToString(<App name={'Unit'} />);
+  const html = renderToString(<App name={request.url} />);
   response.end(html);
   //ReactDOMServer.renderToPipeableStream(<App />).pipe(response);
 
@@ -27,52 +27,33 @@ function requestHandlerHTTP(request, response) {
   // });
 }
 
-// async function requestHandlerStream(request, response) {
-//   const headers = {
-//     "Access-Control-Allow-Origin": "*",
-//     "Access-Control-Allow-Methods": "*",
-//   };
+async function requestHandlerStream(request, response) {
+  if (request.method === "OPTIONS") {
+    response.writeHead(204);
+    response.end();
+    return;
+  }
+  let items = 0;
+  const abortController = new AbortController();
+  request.once("close", (_) => {
+    console.log(`connection was closed!`, items);
+    abortController.abort();
+  });
+  try {
+    response.writeHead(200, { "content-type": "text/html" });
 
-//   if (request.method === "OPTIONS") {
-//     response.writeHead(204, headers);
-//     response.end();
-//     return;
-//   }
-//   let items = 0;
-//   const abortController = new AbortController();
-//   request.once("close", (_) => {
-//     console.log(`connection was closed!`, items);
-//     abortController.abort();
-//   });
-//   try {
-//     response.writeHead(200, headers);
+    console.log(ReactDOMServer);
+    const { renderToPipeableStream } = ReactDOMServer;
+    console.log(renderToPipeableStream);
+    const { pipe } = renderToPipeableStream(<App name="hmm" />, {
+      bootstrapScripts: ["/main.js"],
+      onShellReady() {
+        pipe(response);
+      },
+    });
+  } catch (error) {
+    if (!error.message.includes("abort")) throw error;
+  }
+}
 
-//     console.log(ReactDOMServer);
-//     const { renderToReadableStream } = ReactDOMServer;
-//     console.log(renderToReadableStream);
-//     const stream = await renderToReadableStream(<App />, {
-//       bootstrapScripts: ["/main.js"],
-//     });
-//     await stream
-//       // pipeTo é a ultima etapa
-//       .pipeTo(
-//         new WritableStream({
-//           async write(chunk) {
-//             await setTimeout(200);
-//             items++;
-//             response.write(chunk);
-//           },
-//           close() {
-//             response.end();
-//           },
-//         }),
-//         {
-//           signal: abortController.signal,
-//         },
-//       );
-//   } catch (error) {
-//     if (!error.message.includes("abort")) throw error;
-//   }
-// }
-
-export { requestHandlerHTTP };
+export { requestHandlerHTTP, requestHandlerStream };

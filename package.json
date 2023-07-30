@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "- Origin Server   - Nginx Unit",
   "exports": {
-    ".": "./www/app.js"
+    ".": "./www/server.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node www/server.js"
   },
   "imports": {
     "#request-handler": "./www/components/request-handler.js"
@@ -17,7 +18,7 @@
     "koa": "^2.14.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "unit-http":"^1.30.0"
+    "unit-http": "^1.30.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
